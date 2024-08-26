@@ -19,3 +19,7 @@ You may also see any lint errors in the console.
 Day 1 :- Made homepage with real data using google youtube Api.
 Made header with a collapsible sidebar with link component which takes you to other section of application.
 Made a page to view video, used youtube embed to view video and get rendered data related to video (name, likes, views etc);
+
+Day 2 :- Made comments section with live data, nested comments are not avlabel because of youtube api limitations.
+Made search suggestion , when user types in searchbox it shows suggestion from api data called using "Debounsing" to prevent unnessery api calls.
+Made cache for search suggestions, storing suggestion data into store to improve performance of application search.
