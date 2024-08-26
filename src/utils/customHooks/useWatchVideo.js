@@ -18,7 +18,7 @@ const useWatchVideo = () => {
 
     useEffect(() => {
         getVideo();
-    }, [searchId])
+    }, [])
 
     return videoData;
 };

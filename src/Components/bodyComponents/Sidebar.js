@@ -8,7 +8,7 @@ const Sidebar = () => {
     if (!isVisibal) return '';
 
     return (
-        <div className="w-56 text-sm max-h-screen overflow-scroll px-2 absolute bg-white fixed">
+        <div className="w-56 text-sm max-h-screen overflow-y-scroll px-2 absolute bg-white">
             {/* 1. Home, Shorts and Subscription */}
             <div className="flex flex-col p-3 border-b">
                 <Link

@@ -1,16 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggle } from "../utils/slices/sidebarSlice";
+import { YOUTUBE_SEARCH_SUGGESTION_API } from "../utils/contents";
+import { useSelector } from "react-redux";
+import { addCacheData } from "../utils/slices/searchCache";
+
 
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [suggestionData, setSuggestionData] = useState([]);
+  const [showSuggestions, setShowSuggestion] = useState(false);
 
+  // Catched Data...
+  const cachedSearchData = useSelector((store) => store.searchCache);
+
+  // Dispatch : to dispatch action to call reducer function...
   const dispatch = useDispatch();
+
   // Sidebar toggle handler function...
   const handelToggle = () => {
     dispatch(toggle())
   };
+
+  // Getting search suggestion data...
+  const getSuggestionData = async () => {
+    try {
+      const response = await fetch(YOUTUBE_SEARCH_SUGGESTION_API + searchValue);
+      const jsonData = await response.json();
+      setSuggestionData(jsonData[1]);
+      // updating cache
+      dispatch(addCacheData({ [searchValue]: jsonData[1] }));
+    } catch (err) { console.log(err) }
+  };
+
+  // Debounsing for search...
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+      // Checking cache...
+      if (searchValue && cachedSearchData[searchValue]) {
+        setSuggestionData(cachedSearchData[searchValue]);
+      } else {
+        getSuggestionData()
+      }
+
+    }, 300);
+
+
+    return () => clearTimeout(timer)
+  }, [searchValue]);
+
 
   return (
     <div className="grid grid-flow-col p-2 m-2 h-14 items-center">
@@ -32,20 +72,47 @@ const Header = () => {
 
       {/* Searchbar  */}
       <div className="col-span-10 flex justify-center items-center text-center">
-        <input
-          className="w-2/4 h-full text-lg border rounded-l-full px-3 py-2"
-          value={searchValue}
-          onChange={(e) => { setSearchValue(e.target.value) }}
-        />
+        <div className="w-2/3">
 
-        {/* Search Button */}
-        <button
-          className="border rounded-r-full px-3 py-2 mr-5 bg-gray-200">
-          <img
-            className="h-5"
-            src="https://www.svgrepo.com/show/532551/search-alt-1.svg"
-            alt="search" />
-        </button>
+          {/* searchbar and button */}
+          <div className="w-full h-full flex ">
+            <input
+              className="w-full h-full text-lg border rounded-l-full px-3 py-2"
+              value={searchValue}
+              onChange={(e) => { setSearchValue(e.target.value) }}
+              onFocus={() => setShowSuggestion(true)}
+              onBlur={() => setShowSuggestion(false)}
+            />
+            {/* Search Button */}
+            <button
+              className="border rounded-r-full px-3 py-2 mr-5 bg-gray-200">
+              <img
+                className="h-5"
+                src="https://www.svgrepo.com/show/532551/search-alt-1.svg"
+                alt="search" />
+            </button>
+
+          </div>
+
+          {/* Suggestions */}
+          {!suggestionData.length ? "" : showSuggestions && (
+            <div className="border bg-white absolute w-2/5 rounded-md mt-2 text-start">
+              <ul className="py-3">
+                {
+                  suggestionData.map((item, index) => <li className="flex cursor-pointer  my-1 text-lg hover:bg-gray-200" key={index}>
+                    <img
+                      src="https://www.svgrepo.com/show/522266/search.svg"
+                      alt=""
+                      className="h-6 mx-4 hover:bg-gray-200 self-center"
+                    />
+                    {item}</li>)
+                }
+              </ul>
+            </div>)
+          }
+
+        </div>
+
 
         {/* Microphone Icon */}
         <button className="border border-l-0 bg-gray-200 rounded-full p-2">

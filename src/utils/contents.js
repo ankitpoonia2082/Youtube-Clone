@@ -5,3 +5,10 @@ export const YOUTUBE_POPULAR_VIDEOS_API = `https://youtube.googleapis.com/youtub
 
 export const Video_API = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=`;
 export const YOUTUBE_VIDEOS = `https://www.googleapis.com/youtube/v3/videos`;
+
+
+// export const YOUTUBE_SEARCH_SUGGESTION_API = "https://clients1.google.com/complete/search?client=youtube&gs_ri=youtube&ds=yt&q=";
+
+export const YOUTUBE_SEARCH_SUGGESTION_API = "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+
+export const YOUTUBE_COMMENTS_API = `https://www.googleapis.com/youtube/v3/commentThreads?key=${API_KEY}&textFormat=plainText&part=snippet&`;

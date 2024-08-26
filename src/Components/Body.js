@@ -3,12 +3,10 @@ import { Outlet } from "react-router-dom";
 
 const Body = () => {
     return (
-        <div className="grid-flow-col">
-            <div className="grid-cols-2">
-                <Sidebar />
-            </div>
+        <div className="">
+            <Sidebar />
 
-            <div className="grid-cols-10">
+            <div className="h-screen">
                 <Outlet />
             </div>
         </div>

@@ -10,8 +10,8 @@ const VideoCard = ({ data }) => {
         <div>
             {/* Thumbnale */}
             <img
-                className="rounded-md hover:rounded-none"
-                src={thumbnails.maxres.url}
+                className="rounded-lg hover:rounded-none w-96 h-52 bg-gray-200"
+                src={thumbnails?.maxres?.url}
                 alt="" />
 
             {/* Logo & Details */}

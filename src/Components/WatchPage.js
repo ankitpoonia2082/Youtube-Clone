@@ -1,27 +1,19 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { close } from "../utils/slices/sidebarSlice";
 import useWatchVideo from "../utils/customHooks/useWatchVideo";
 import { likeIcon, dislikeIcon } from "../utils/assets/likeDislike";
-
-
+import useComments from "../utils/customHooks/useComments";
+import CommentCard from "./bodyComponents/CommentCard";
 
 
 const WatchPage = () => {
-    const dispatch = useDispatch();
     const videoData = useWatchVideo();
-
-    console.log(videoData)
-
-
-    useEffect(() => {
-        dispatch(close())
-    })
+    const commentsData = useComments();
+    // console.log("🚀 ~ WatchPage ~ commentsData:", commentsData)
 
     if (!videoData?.id) return '';
 
     const { snippet, statistics } = videoData;
     const { title, channelTitle } = snippet;
+
 
     return (
         <div className="p-5">
@@ -111,9 +103,20 @@ const WatchPage = () => {
                 </div>
 
                 {/* Comments */}
-                {/* <div>
+                {
+                    !commentsData.length ? "" :
+                        <>
+                            <h1 className="font-bold text-lg my-5">{commentsData.length} Comments</h1>
+                            <div className="py-5 m-4">
 
-                </div> */}
+                                {
+                                    commentsData.map((data) => <CommentCard key={data?.snippet?.topLevelComment.id}
+                                        data={data?.snippet?.topLevelComment?.snippet} />)
+                                }
+
+                            </div>
+                        </>
+                }
             </div>
         </div>
     );
