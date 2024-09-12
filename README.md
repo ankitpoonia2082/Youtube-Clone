@@ -1,5 +1,5 @@
 This is Youtube Clone app made in React during learning React.
-Developer : Ankit Poonia
+Developed by : Ankit Poonia
 
 Tech Stack used :- 1. React (JSX) 2. React Router 3. Redux
 
@@ -9,7 +9,9 @@ Tech Stack used :- 1. React (JSX) 2. React Router 3. Redux
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm i` :- To install required npm packages.
+
+### `npm start` :- To run server (port no 3000 by default).
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -23,3 +25,7 @@ Made a page to view video, used youtube embed to view video and get rendered dat
 Day 2 :- Made comments section with live data, nested comments are not avlabel because of youtube api limitations.
 Made search suggestion , when user types in searchbox it shows suggestion from api data called using "Debounsing" to prevent unnessery api calls.
 Made cache for search suggestions, storing suggestion data into store to improve performance of application search.
+
+Day 3 :- Made filters and search videos working , made live videos container, Watch live page with live chat using Long poling / Api Poling (Youtube don't provide api for live chat so I made random name and random string generator functions which give live chat like data to render in live chat ), and made send chat in live.
+
+// This project is completed with main features working , there will be some minor bugs and responsive ui issues which will be fixed later.
