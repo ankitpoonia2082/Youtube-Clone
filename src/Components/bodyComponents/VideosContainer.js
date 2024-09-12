@@ -10,8 +10,10 @@ const VideosContainer = () => {
 
     return !videoData.length ? <CardShimmers /> : (
         <div>
-            <FilterBar />
-            <div className="grid grid-cols-3 gap-5 h-screen overflow-y-scroll p-10">
+            <div className="w-screen">
+                <FilterBar />
+            </div>
+            <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-2 sm:grid-cols-1 p-10">
                 {
                     videoData.map((data) => <Link to={'/watch?v=' + data.id} key={data.id}>
                         <VideoCard key={data.id} data={data} />

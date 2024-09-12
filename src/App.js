@@ -1,10 +1,12 @@
-import Header from './Components/Header';
-import { Provider } from 'react-redux';
+import Body from './Components/Body';
 import store from "./utils/store";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import VideosContainer from './Components/bodyComponents/VideosContainer';
-import Body from './Components/Body';
+import SearchVideosContainer from './Components/bodyComponents/SearchVideosContainer';
 import WatchPage from "./Components/WatchPage";
+import LiveVideosContainer from './Components/bodyComponents/LiveVideoContainer';
+import WatchLivePage from './Components/WatchLive';
 
 
 /** App Structor...
@@ -29,7 +31,6 @@ import WatchPage from "./Components/WatchPage";
 function App() {
   return (
     <Provider store={store}>
-      <Header />
       <RouterProvider router={appRouter} />
     </Provider>
   );
@@ -47,6 +48,18 @@ export const appRouter = createBrowserRouter([
       {
         path: '/watch',
         element: <WatchPage />
+      },
+      {
+        path: '/search',
+        element: <SearchVideosContainer />
+      },
+      {
+        path: '/live',
+        element: <LiveVideosContainer />
+      },
+      {
+        path: '/Watchlive',
+        element: <WatchLivePage />
       },
     ],
   }

@@ -1,12 +1,14 @@
 import Sidebar from "./bodyComponents/Sidebar";
+import Header from "./Header";
 import { Outlet } from "react-router-dom";
 
 const Body = () => {
     return (
         <div className="">
             <Sidebar />
+            <Header />
 
-            <div className="h-screen">
+            <div className="">
                 <Outlet />
             </div>
         </div>

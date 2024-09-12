@@ -3,7 +3,6 @@
 const CommentCard = ({ data }) => {
 
     const { authorDisplayName, authorProfileImageUrl, publishedAt, textDisplay } = data;
-    console.log("🚀 ~ CommentCard ~ publishedAt:", publishedAt)
 
     const authorProfile = authorProfileImageUrl || 'https://www.svgrepo.com/show/532362/user.svg';
 

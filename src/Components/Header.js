@@ -4,13 +4,15 @@ import { toggle } from "../utils/slices/sidebarSlice";
 import { YOUTUBE_SEARCH_SUGGESTION_API } from "../utils/contents";
 import { useSelector } from "react-redux";
 import { addCacheData } from "../utils/slices/searchCache";
-
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState('');
   const [suggestionData, setSuggestionData] = useState([]);
   const [showSuggestions, setShowSuggestion] = useState(false);
+
+  const navigate = useNavigate();
 
   // Catched Data...
   const cachedSearchData = useSelector((store) => store.searchCache);
@@ -51,9 +53,13 @@ const Header = () => {
     return () => clearTimeout(timer)
   }, [searchValue]);
 
+  const searchSuggestionHandel = (str) => {
+    navigate(str ? "/search?query=" + str : "")
+  }
+
 
   return (
-    <div className="grid grid-flow-col p-2 m-2 h-14 items-center">
+    <div className="grid grid-flow-col p-2 m-2 h-14 bg-white items-center bg-fixed top-0 left-0 w-full z-40 ">
       {/* Menu Button to toggel Sidebar and Logo */}
       <div className="flex col-span-1">
         <img
@@ -63,11 +69,11 @@ const Header = () => {
           onClick={handelToggle}
         />
 
-        <img
+        <Link to={"/"}><img
           className="h-6 ml-3"
           src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
           alt="Logo"
-        />
+        /></Link>
       </div>
 
       {/* Searchbar  */}
@@ -82,15 +88,21 @@ const Header = () => {
               onChange={(e) => { setSearchValue(e.target.value) }}
               onFocus={() => setShowSuggestion(true)}
               onBlur={() => setShowSuggestion(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(searchValue ? "/search?query=" + searchValue : "")
+                }
+              }}
             />
             {/* Search Button */}
-            <button
-              className="border rounded-r-full px-3 py-2 mr-5 bg-gray-200">
+            <Link
+              className="border rounded-r-full px-3 py-2 mr-5 bg-gray-200"
+              to={searchValue ? "/search?query=" + searchValue : ""}>
               <img
                 className="h-5"
                 src="https://www.svgrepo.com/show/532551/search-alt-1.svg"
                 alt="search" />
-            </button>
+            </Link>
 
           </div>
 
@@ -99,13 +111,24 @@ const Header = () => {
             <div className="border bg-white absolute w-2/5 rounded-md mt-2 text-start">
               <ul className="py-3">
                 {
-                  suggestionData.map((item, index) => <li className="flex cursor-pointer  my-1 text-lg hover:bg-gray-200" key={index}>
-                    <img
-                      src="https://www.svgrepo.com/show/522266/search.svg"
-                      alt=""
-                      className="h-6 mx-4 hover:bg-gray-200 self-center"
-                    />
-                    {item}</li>)
+                  suggestionData.map((item, index) =>
+                    <li
+                      className="flex cursor-pointer w-full  my-1 text-lg hover:bg-gray-200"
+                      key={index}
+                      onClick={() => {
+                        searchSuggestionHandel(item)
+                      }}
+                    >
+                      <img
+                        src="https://www.svgrepo.com/show/522266/search.svg"
+                        onClick={() => {
+                          searchSuggestionHandel(item)
+                        }}
+                        alt=""
+                        className="h-6 mx-4 hover:bg-gray-200 self-center"
+                      />
+                      {item}</li>
+                  )
                 }
               </ul>
             </div>)

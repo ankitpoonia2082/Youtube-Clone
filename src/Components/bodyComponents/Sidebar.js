@@ -1,14 +1,43 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggle } from "../../utils/slices/sidebarSlice";
 
 const Sidebar = () => {
     const isVisibal = useSelector(store => store.sidebar.isSidebarVisible);
-    // const isVisibal = true
+
+    // Dispatch : to dispatch action to call reducer function...
+    const dispatch = useDispatch();
+
+    // Sidebar toggle handler function...
+    const handelToggle = () => {
+        dispatch(toggle())
+    };
 
     if (!isVisibal) return '';
 
     return (
-        <div className="w-56 text-sm max-h-screen overflow-y-scroll px-2 absolute bg-white">
+        <div
+            className="w-56 text-sm max-h-screen overflow-y-scroll px-2 bg-white py-3 fixed top-0 left-0 h-screen transform transition-transform duration-800 ease-in-out z-20 ">
+            {/* Menu Button to toggel Sidebar and Logo */}
+            <div className="flex col-span-1 bg-fixed top-0 bg-white py-5 w-full">
+                <img
+                    className="h-6 cursor-pointer"
+                    src="https://www.svgrepo.com/show/506800/burger-menu.svg"
+                    alt="Menu"
+                    onClick={handelToggle}
+                />
+
+                <Link to={"/"}>
+                    <img
+                        className="h-6 ml-3"
+                        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+                        alt="Logo"
+                    />
+                </Link>
+            </div>
+
+
             {/* 1. Home, Shorts and Subscription */}
             <div className="flex flex-col p-3 border-b">
                 <Link
@@ -76,28 +105,36 @@ const Sidebar = () => {
             <div className="flex flex-col p-3 border-b">
                 <h1 className="font-bold">Explore</h1>
                 <div className="flex flex-col">
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=Trending"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/487392/fire.svg"
                             alt="" />
                         Trending</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=shopping"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/533028/bag-shopping.svg"
                             alt="" />
                         Shoping</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=music"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/532711/music-note.svg"
                             alt="" />
                         Music</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=movies"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/480145/clapperboard-with-play-button-3.svg"
@@ -105,7 +142,9 @@ const Sidebar = () => {
                         />
                         Films</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={'/live'}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/326774/radio-outline.svg"
@@ -113,7 +152,9 @@ const Sidebar = () => {
                         />
                         Live</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=gaming"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/533074/gaming-pad-alt-1.svg"
@@ -121,7 +162,9 @@ const Sidebar = () => {
                         />
                         Gaming</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=news"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/348759/news-paper.svg"
@@ -129,22 +172,28 @@ const Sidebar = () => {
                         />
                         News</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=sports"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/533056/trophy.svg"
                             alt=""
                         />
-                        Suport</Link>
+                        Sports</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=Courses"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/428085/study-university.svg"
                             alt="" />
                         Course</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=Fation And beauty"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/156542/clothes-hanging-tool.svg"
@@ -152,7 +201,9 @@ const Sidebar = () => {
                         />
                         Fation & beauty</Link>
 
-                    <Link className="flex p-3 hover:bg-gray-100 rounded-xl">
+                    <Link
+                        to={"/search?query=podcast"}
+                        className="flex p-3 hover:bg-gray-100 rounded-xl">
                         <img
                             className="h-5 mr-5"
                             src="https://www.svgrepo.com/show/533307/podcast.svg"

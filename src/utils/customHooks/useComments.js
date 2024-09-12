@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const useComments = () => {
     const [searchId] = useSearchParams();
-    const [comment, setComments] = useState({});
+    const [comments, setComments] = useState({});
 
     const getComments = async (searchId) => {
         const response = await fetch(YOUTUBE_COMMENTS_API + 'videoId=' + searchId.get("v") + '&maxResults=50');
@@ -17,7 +17,7 @@ const useComments = () => {
         getComments(searchId)
     }, []);
 
-    return comment;
+    return comments;
 };
 
 export default useComments;

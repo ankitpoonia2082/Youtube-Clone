@@ -33,7 +33,7 @@ export const VideoCardShimmer = () => {
 };
 
 const CardShimmers = () => (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="grid grid-cols-3 gap-5 m-10 items-center">
         {
             Array(10)
                 .fill("")

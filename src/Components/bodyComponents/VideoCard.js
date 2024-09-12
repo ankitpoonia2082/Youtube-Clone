@@ -11,11 +11,11 @@ const VideoCard = ({ data }) => {
             {/* Thumbnale */}
             <img
                 className="rounded-lg hover:rounded-none w-96 h-52 bg-gray-200"
-                src={thumbnails?.maxres?.url}
+                src={thumbnails?.maxres?.url || thumbnails?.high?.url}
                 alt="" />
 
             {/* Logo & Details */}
-            <div className="grid grid-flow-col mt-3">
+            <div className="grid grid-flow-col justify-start mt-3">
                 {/* Logo */}
                 <img
                     className="rounded-full h-10 grid-cols-2 border mr-3"

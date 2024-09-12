@@ -1,30 +1,30 @@
 import useWatchVideo from "../utils/customHooks/useWatchVideo";
 import { likeIcon, dislikeIcon } from "../utils/assets/likeDislike";
-import useComments from "../utils/customHooks/useComments";
-import CommentCard from "./bodyComponents/CommentCard";
+import LiveChatContainer from "./bodyComponents/LiveChatContainer";
 
-
-const WatchPage = () => {
+const WatchLivePage = () => {
     const videoData = useWatchVideo();
-    const commentsData = useComments();
-
     if (!videoData?.id) return '';
 
     const { snippet, statistics } = videoData;
     const { title, channelTitle } = snippet;
 
-
     return (
-        <div className="p-5">
+        <div className="p-5 w-full">
             {/* Video */}
-            <div className="w-full bg-black rounded-xl mb-5">
+            <div className="w-full h-[500px] flex rounded-xl mb-5">
                 <iframe
-                    className="w-full h-[500px] rounded-2xl"
+                    className="w-9/12 h-full rounded-2xl"
                     src={"https://www.youtube.com/embed/" + videoData.id}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"
                     title="youtube"
                     allowFullScreen>
                 </iframe>
+                {/* Live Chats */}
+                {/* Data / messages */}
+                <div className="">
+                    <LiveChatContainer />
+                </div>
             </div>
 
             {/* Details */}
@@ -57,6 +57,7 @@ const WatchPage = () => {
 
                     </div>
 
+                    {/* Like, dislike etc */}
                     <div className="grid grid-flow-col gap-5 items-center my-3">
 
                         {/* Likes and Dislike */}
@@ -101,25 +102,10 @@ const WatchPage = () => {
                     </div>
                 </div>
 
-                {/* Comments */}
-                {
-                    !commentsData.length ? "" :
-                        <>
-                            <h1 className="font-bold text-lg my-5">{commentsData.length} Comments</h1>
-                            <div className="py-5 m-4">
-
-                                {
-                                    commentsData.map((data) => <CommentCard key={data?.snippet?.topLevelComment.id}
-                                        data={data?.snippet?.topLevelComment?.snippet} />)
-                                }
-
-                            </div>
-                        </>
-                }
             </div>
         </div>
     );
 };
 
 
-export default WatchPage;
+export default WatchLivePage;
